@@ -1,0 +1,15 @@
+import { models, model, Schema } from "mongoose";
+import { IReview } from "@/types";
+
+const reviewSchema: Schema<IReview> = new Schema(
+  {
+    content: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { timestamps: true }
+);
+
+export const Review = models.Review || model<IReview>("Review", reviewSchema);
