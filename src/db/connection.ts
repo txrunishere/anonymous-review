@@ -1,14 +1,9 @@
 import mongoose from "mongoose";
 
-let flag: boolean | null = null;
-
 export const connection = async () => {
-  if (flag) return;
   try {
-    if (mongoose.connection.readyState === 2) {
-      flag = true;
-      return;
-    }
+    if (mongoose.connection.readyState === 1) return;
+    if (mongoose.connection.readyState === 2) return;
 
     const mongooseConnectionInstence = await mongoose.connect(
       process.env.MONGO_URI!,
@@ -17,10 +12,6 @@ export const connection = async () => {
         bufferCommands: true,
       }
     );
-
-    if (mongooseConnectionInstence.connection.readyState === 1) {
-      flag = true;
-    }
 
     console.log(
       "Database Connected!!",

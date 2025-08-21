@@ -18,6 +18,7 @@ interface ApiResponse {
   user?: IUser;
   review?: IReview;
   reviews?: Array<IReview>;
+  token?: string;
 }
 
 interface IRegisterForm extends ILoginForm {
@@ -29,4 +30,22 @@ interface ILoginForm {
   password: string;
 }
 
-export type { IReview, IUser, ApiResponse, ILoginForm, IRegisterForm };
+interface IUserResponse {
+  _id: string;
+  username: string;
+  email: string;
+  reviews: Array<{
+    _id: string;
+    content: string;
+    createdAt: Date;
+  }>;
+}
+
+export type {
+  IReview,
+  IUser,
+  ApiResponse,
+  ILoginForm,
+  IRegisterForm,
+  IUserResponse,
+};

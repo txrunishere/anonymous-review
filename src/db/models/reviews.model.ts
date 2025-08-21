@@ -1,4 +1,4 @@
-import { models, model, Schema } from "mongoose";
+import { models, model, Schema, Model } from "mongoose";
 import { IReview } from "@/types";
 
 const reviewSchema: Schema<IReview> = new Schema(
@@ -12,4 +12,5 @@ const reviewSchema: Schema<IReview> = new Schema(
   { timestamps: true }
 );
 
-export const Review = models.Review || model<IReview>("Review", reviewSchema);
+export const Review =
+  (models.Review as Model<IReview>) || model<IReview>("Review", reviewSchema);
