@@ -41,6 +41,11 @@ interface IUserResponse {
   }>;
 }
 
+interface IAxiosErrorReturn {
+  message: string;
+  success: boolean;
+}
+
 export type {
   IReview,
   IUser,
@@ -48,4 +53,5 @@ export type {
   ILoginForm,
   IRegisterForm,
   IUserResponse,
+  IAxiosErrorReturn,
 };

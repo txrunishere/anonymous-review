@@ -12,7 +12,7 @@ export default function page() {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [fetchUser]);
 
   const handleCopyUserUrl = () => {
     if (userUrlRef.current?.value)

@@ -3,7 +3,8 @@
 import { FC, useState } from "react";
 import { Button, Input } from "./";
 import { SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { IAxiosErrorReturn } from "@/types";
 
 export const ReviewForm: FC<{ username: string }> = ({ username }) => {
   const {
@@ -25,9 +26,14 @@ export const ReviewForm: FC<{ username: string }> = ({ username }) => {
         content,
       });
 
-      if (res.data.success) console.log(res);
+      if (res.data.success) return;
     } catch (error) {
-      setError((error as any).response.data.message);
+      const err = error as AxiosError<IAxiosErrorReturn>;
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong!");
+      }
     }
   };
 

@@ -8,12 +8,13 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IRegisterForm } from "@/types";
+import { IAxiosErrorReturn, IRegisterForm } from "@/types";
 import { userRegisterSchema } from "@/schema/user.schema";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function RegisterForm({
   className,
@@ -51,7 +52,12 @@ export function RegisterForm({
         push("/login");
       }
     } catch (error) {
-      setError((error as any).response.data.message);
+      const err = error as AxiosError<IAxiosErrorReturn>;
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong!");
+      }
     }
   };
 
@@ -60,7 +66,7 @@ export function RegisterForm({
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="z-10 relative hidden md:block">
-            <img
+            <Image
               src="/20943394.jpg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover"
