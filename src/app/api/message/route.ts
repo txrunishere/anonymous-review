@@ -3,6 +3,7 @@ import { connection } from "@/db/connection";
 import { ApiResponse } from "@/types";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "@/db/models/user.model";
+import { Review } from "@/db/models/reviews.model";
 
 export async function POST(
   req: NextRequest
