@@ -42,7 +42,7 @@ export function LoginForm({
 
       if (res.data.success) {
         toast.success(res.data.message);
-        push("/");
+        push("/message");
       }
     } catch (error) {
       setError((error as any).response.data.message);
@@ -94,7 +94,7 @@ export function LoginForm({
                 Login
               </Button>
               {error && (
-                <p className="text-center text-sm font-medium bg-red-500">
+                <p className="text-center text-sm font-medium text-red-500">
                   {error}
                 </p>
               )}

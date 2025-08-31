@@ -19,7 +19,9 @@ export async function POST(
 
     const user = await User.findById(tokenData.id)
       .select("-password")
-      .populate("reviews");
+      ?.populate("reviews");
+
+    // const reviews = user?.populate("reviews");
 
     if (!user) {
       return NextResponse.json(
@@ -39,7 +41,7 @@ export async function POST(
     console.error(error);
     return NextResponse.json({
       success: false,
-      message: "Token is invalid or expired",
+      message: "Something went wrong while get user details!!",
     });
   }
 }
