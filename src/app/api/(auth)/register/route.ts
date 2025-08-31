@@ -37,7 +37,7 @@ export async function POST(
     await connection();
 
     const isUserExists = await User.findOne({
-      email,
+      $or: [{ email }, { username }],
     });
 
     if (isUserExists) {

@@ -25,11 +25,7 @@ export async function POST(
 
     await connection();
 
-    const user = await User.findById(tokenData.id)
-      .select("-password")
-      ?.populate("reviews");
-
-    // const reviews = user?.populate("reviews");
+    const user = await User.findById(tokenData.id).select("-password");
 
     if (!user) {
       return NextResponse.json(
@@ -40,6 +36,8 @@ export async function POST(
         { status: 404 }
       );
     }
+
+    await user?.populate("reviews");
 
     return NextResponse.json(
       { success: true, message: "Valid Token", user },

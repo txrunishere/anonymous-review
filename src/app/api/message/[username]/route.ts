@@ -42,7 +42,7 @@ export async function POST(
     if (review) {
       const updatedUser = await User.findByIdAndUpdate(user.id, {
         $push: {
-          reviews: review,
+          reviews: review._id,
         },
       });
 

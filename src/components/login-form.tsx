@@ -115,6 +115,8 @@ export function LoginForm({
           <div className="z-10 relative hidden md:block">
             <Image
               src="/20943394.jpg"
+              width={1200}
+              height={1200}
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover"
             />
