@@ -8,7 +8,14 @@ export async function POST(
   req: NextRequest
 ): Promise<NextResponse<ApiResponse>> {
   try {
-    const token = req.cookies.get("token")?.value!;
+    const token = req.cookies.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: No token provided" },
+        { status: 401 }
+      );
+    }
 
     const tokenData = jwt.verify(
       token,

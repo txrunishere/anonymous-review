@@ -6,7 +6,7 @@ import moment from "moment";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useRef } from "react";
 
-export default function page() {
+export default function Message() {
   const { fetchUser, user } = useUserStore();
   const userUrlRef = useRef<HTMLInputElement>(null);
 
