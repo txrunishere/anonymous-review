@@ -5,12 +5,11 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import moment from "moment";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 
 export default function Message() {
   const { fetchUser, user } = useUserStore();
   const userUrlRef = useRef<HTMLInputElement>(null);
-  const pathname = usePathname();
+  const pathname = window.location.href;
 
   useEffect(() => {
     fetchUser();
@@ -33,7 +32,7 @@ export default function Message() {
           <div className="flex md:mx-4 mx-8 gap-2">
             <Input
               readOnly
-              value={`${pathname}${user?.username ? user?.username : ""}`}
+              value={`${pathname}/${user?.username ? user?.username : ""}`}
               ref={userUrlRef}
             />
             <Button onClick={handleCopyUserUrl}>Copy</Button>
