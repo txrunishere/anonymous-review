@@ -5,12 +5,14 @@ import { Button, Input } from "./";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { IAxiosErrorReturn } from "@/types";
+import { Loader2Icon } from "lucide-react";
 
 export const ReviewForm: FC<{ username: string }> = ({ username }) => {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = useForm({
     defaultValues: {
       content: "",
@@ -25,8 +27,10 @@ export const ReviewForm: FC<{ username: string }> = ({ username }) => {
       const res = await axios.post(`/api/message/${username}`, {
         content,
       });
-
-      if (res.data.success) return;
+      if (res.data.success) {
+        reset();
+        return;
+      }
     } catch (error) {
       const err = error as AxiosError<IAxiosErrorReturn>;
       if (err.response?.data?.message) {
@@ -43,6 +47,7 @@ export const ReviewForm: FC<{ username: string }> = ({ username }) => {
         <div className="flex gap-2">
           <Input placeholder="write a review..." {...register("content")} />
           <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting && <Loader2Icon className="animate-spin" />}
             Send
           </Button>
         </div>

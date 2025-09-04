@@ -5,6 +5,11 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import moment from "moment";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useRef, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Message() {
   const { fetchUser, user } = useUserStore();
@@ -18,7 +23,7 @@ export default function Message() {
   }, [fetchUser]);
 
   const handleCopyUserUrl = () => {
-    if (userUrlRef.current?.value)
+    if (userUrlRef.current)
       navigator.clipboard.writeText(userUrlRef.current?.value);
   };
 
@@ -38,7 +43,14 @@ export default function Message() {
               value={`${pathname}/${user?.username ? user?.username : ""}`}
               ref={userUrlRef}
             />
-            <Button onClick={handleCopyUserUrl}>Copy</Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button onClick={handleCopyUserUrl}>Copy</Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Copy to Clipboard</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
         <div className="mt-10 max-w-4xl mx-auto">
