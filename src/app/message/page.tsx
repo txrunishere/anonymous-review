@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "@/components";
+import { Button, Input, HowToUse } from "@/components";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import moment from "moment";
 import { useUserStore } from "@/stores/user-store";
@@ -24,6 +24,7 @@ export default function Message() {
 
   return (
     <div>
+      <HowToUse />
       <div>
         <section>
           <h1 className="text-center text-2xl md:text-4xl font-bold mt-20">
